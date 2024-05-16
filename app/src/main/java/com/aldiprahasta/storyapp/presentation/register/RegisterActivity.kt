@@ -11,5 +11,15 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        binding.apply {
+            imgBack.setOnClickListener {
+                finish()
+            }
+        }
     }
 }

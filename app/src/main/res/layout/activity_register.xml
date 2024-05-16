@@ -8,6 +8,16 @@
     tools:context=".presentation.register.RegisterActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/img_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:paddingVertical="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back" />
+
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgSignup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
