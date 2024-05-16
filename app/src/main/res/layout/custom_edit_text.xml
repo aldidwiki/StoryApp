@@ -20,8 +20,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:background="@drawable/bg_rectangle"
+        android:imeOptions="actionDone"
+        android:maxLines="1"
         android:minHeight="50dp"
-        android:paddingHorizontal="20dp"
+        android:paddingStart="40dp"
+        android:paddingEnd="30dp"
         app:layout_constraintBottom_toTopOf="@id/imgLogo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,4 +40,29 @@
         app:layout_constraintStart_toStartOf="@id/edt_layout"
         app:layout_constraintTop_toTopOf="@id/edt_layout"
         tools:srcCompat="@drawable/ic_email" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgEye"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/edt_layout"
+        app:layout_constraintEnd_toEndOf="@id/edt_layout"
+        app:layout_constraintTop_toTopOf="@id/edt_layout"
+        app:srcCompat="@drawable/ic_eye_filled" />
+
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="4dp"
+        android:textColor="#ff0000"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/edt_layout"
+        app:layout_constraintStart_toStartOf="@id/edt_layout"
+        app:layout_constraintTop_toBottomOf="@id/edt_layout"
+        tools:text="Password tidak boleh kurang dari 8 karakter" />
 </androidx.constraintlayout.widget.ConstraintLayout>

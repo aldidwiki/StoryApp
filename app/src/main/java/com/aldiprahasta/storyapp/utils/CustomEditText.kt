@@ -2,17 +2,19 @@ package com.aldiprahasta.storyapp.utils
 
 import android.content.Context
 import android.text.Editable
-import android.text.InputType
+import android.text.InputFilter
 import android.text.TextWatcher
+import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.core.view.isVisible
 import com.aldiprahasta.storyapp.R
 import com.aldiprahasta.storyapp.databinding.CustomEditTextBinding
 
-class CustomEditText @JvmOverloads constructor(
+class CustomEditText(
         mContext: Context,
-        attrs: AttributeSet? = null
+        attrs: AttributeSet
 ) : FrameLayout(mContext, attrs) {
     private val binding = CustomEditTextBinding.inflate(
             LayoutInflater.from(mContext), this, true
@@ -22,11 +24,14 @@ class CustomEditText @JvmOverloads constructor(
         mContext.obtainStyledAttributes(attrs, R.styleable.CustomEditText).apply {
             val edtTitle = getString(R.styleable.CustomEditText_edtTitle)
             val edtLogo = getResourceId(R.styleable.CustomEditText_edtLogo, 0)
-            val edtInputType = getInt(R.styleable.CustomEditText_edtInputType, InputType.TYPE_CLASS_TEXT)
+            val isPasswordType = getBoolean(R.styleable.CustomEditText_isPasswordType, false)
 
             setupEditTextTitle(edtTitle)
             setupEditTextLogo(edtLogo)
-            setupEditTextInputType(edtInputType)
+
+            if (isPasswordType) {
+                onPasswordType()
+            }
         }.recycle()
     }
 
@@ -38,15 +43,24 @@ class CustomEditText @JvmOverloads constructor(
         if (logo != 0) binding.imgLogo.setImageResource(logo)
     }
 
-    private fun setupEditTextInputType(type: Int) {
-        binding.edtLayout.inputType = when (type) {
-            PASSWORD_TYPE -> {
-                setupEditTextOnTextChange()
-                InputType.TYPE_TEXT_VARIATION_PASSWORD or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+    private fun onPasswordType() {
+        var isOpenPassword = false
+        binding.apply {
+            imgEye.isVisible = true
+            edtLayout.transformationMethod = PasswordTransformationMethod()
+            edtLayout.filters = arrayOf(InputFilter.LengthFilter(12))
+            setupEditTextOnTextChange()
+            imgEye.setOnClickListener {
+                isOpenPassword = !isOpenPassword
+                if (isOpenPassword) {
+                    imgEye.setImageResource(R.drawable.ic_eye_outline)
+                    edtLayout.transformationMethod = null
+                } else {
+                    imgEye.setImageResource(R.drawable.ic_eye_filled)
+                    edtLayout.transformationMethod = PasswordTransformationMethod()
+                }
+                edtLayout.setSelection(edtLayout.text.toString().length)
             }
-
-            EMAIL_TYPE -> InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
-            else -> InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
         }
     }
 
@@ -55,10 +69,10 @@ class CustomEditText @JvmOverloads constructor(
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.toString().length < 8) {
-                    binding.edtLayout.error = "Password tidak boleh kurang dari 8 karakter"
+                if (s.toString().length < 8 && s.toString().isNotBlank()) {
+                    setErrorMessage("Password tidak boleh kurang dari 8 karakter")
                 } else {
-                    binding.edtLayout.error = null
+                    setErrorMessage(null)
                 }
             }
 
@@ -66,8 +80,14 @@ class CustomEditText @JvmOverloads constructor(
         })
     }
 
-    companion object {
-        private const val PASSWORD_TYPE = 2
-        private const val EMAIL_TYPE = 3
+    fun getText() = binding.edtLayout.text.toString()
+
+    fun setErrorMessage(text: CharSequence?) {
+        text?.let {
+            binding.tvError.isVisible = true
+            binding.tvError.text = text
+        } ?: run {
+            binding.tvError.isVisible = false
+        }
     }
 }

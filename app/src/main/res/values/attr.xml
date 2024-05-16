@@ -3,10 +3,6 @@
     <declare-styleable name="CustomEditText">
         <attr name="edtTitle" format="string" />
         <attr name="edtLogo" format="reference" />
-        <attr name="edtInputType" format="enum">
-            <enum name="text" value="1" />
-            <enum name="password" value="2" />
-            <enum name="email" value="3" />
-        </attr>
+        <attr name="isPasswordType" format="boolean" />
     </declare-styleable>
 </resources>
