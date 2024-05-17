@@ -6,6 +6,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.aldiprahasta.storyapp.databinding.ActivityAddStoryBinding
+import com.aldiprahasta.storyapp.utils.getImageUri
 import timber.log.Timber
 
 class AddStoryActivity : AppCompatActivity() {
@@ -23,6 +24,14 @@ class AddStoryActivity : AppCompatActivity() {
         }
     }
 
+    private val launcherIntentCamera = registerForActivityResult(
+            ActivityResultContracts.TakePicture()
+    ) { isSuccess ->
+        if (isSuccess) {
+            showImage()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
@@ -36,11 +45,20 @@ class AddStoryActivity : AppCompatActivity() {
             btnGallery.setOnClickListener {
                 startGallery()
             }
+
+            btnCamera.setOnClickListener {
+                startCamera()
+            }
         }
     }
 
     private fun startGallery() {
         launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
+
+    private fun startCamera() {
+        currentImageUri = getImageUri(this)
+        launcherIntentCamera.launch(currentImageUri)
     }
 
     private fun showImage() {
