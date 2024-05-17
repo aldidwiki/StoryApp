@@ -1,7 +1,9 @@
 package com.aldiprahasta.storyapp.data
 
 import com.aldiprahasta.storyapp.data.network.RemoteService
+import com.aldiprahasta.storyapp.data.request.LoginRequestModel
 import com.aldiprahasta.storyapp.data.request.RegisterRequestModel
+import com.aldiprahasta.storyapp.data.response.LoginResponse
 import com.aldiprahasta.storyapp.data.response.RegisterResponse
 import com.aldiprahasta.storyapp.utils.UiState
 import kotlinx.coroutines.Dispatchers
@@ -19,6 +21,18 @@ class RemoteDataSource(private val remoteService: RemoteService) {
         if (!response.isSuccessful) emit(UiState.Error(HttpException(response), response.message()))
         else response.body()?.let { registerResponse ->
             emit(UiState.Success(registerResponse))
+        }
+    }.catch { t ->
+        Timber.e(t)
+        emit(UiState.Error(t))
+    }.flowOn(Dispatchers.IO)
+
+    fun loginUser(loginRequestModel: LoginRequestModel): Flow<UiState<LoginResponse>> = flow {
+        emit(UiState.Loading)
+        val response = remoteService.loginUser(loginRequestModel)
+        if (!response.isSuccessful) emit(UiState.Error(HttpException(response), response.message()))
+        else response.body()?.let { loginResponse ->
+            emit(UiState.Success(loginResponse))
         }
     }.catch { t ->
         Timber.e(t)
