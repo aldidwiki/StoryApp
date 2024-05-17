@@ -1,6 +1,5 @@
 package com.aldiprahasta.storyapp.presentation.register
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +8,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.aldiprahasta.storyapp.data.request.RegisterRequestModel
 import com.aldiprahasta.storyapp.databinding.ActivityRegisterBinding
-import com.aldiprahasta.storyapp.presentation.login.LoginActivity
 import com.aldiprahasta.storyapp.utils.doIfError
 import com.aldiprahasta.storyapp.utils.doIfLoading
 import com.aldiprahasta.storyapp.utils.doIfSuccess
@@ -55,10 +53,7 @@ class RegisterActivity : AppCompatActivity() {
                             doIfSuccess { model ->
                                 binding.pbRegister.gone()
                                 Toast.makeText(this@RegisterActivity, model.message, Toast.LENGTH_SHORT).show()
-                                Intent(this@RegisterActivity, LoginActivity::class.java).also { intent ->
-                                    startActivity(intent)
-                                    finish()
-                                }
+                                finish()
                             }
                         }
                     }
