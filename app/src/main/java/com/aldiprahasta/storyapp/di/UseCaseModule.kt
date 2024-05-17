@@ -1,5 +1,6 @@
 package com.aldiprahasta.storyapp.di
 
+import com.aldiprahasta.storyapp.domain.usecase.AddStory
 import com.aldiprahasta.storyapp.domain.usecase.GetStories
 import com.aldiprahasta.storyapp.domain.usecase.LoginUser
 import com.aldiprahasta.storyapp.domain.usecase.RegisterUser
@@ -10,4 +11,5 @@ val useCaseModule = module {
     factoryOf(::RegisterUser)
     factoryOf(::LoginUser)
     factoryOf(::GetStories)
+    factoryOf(::AddStory)
 }

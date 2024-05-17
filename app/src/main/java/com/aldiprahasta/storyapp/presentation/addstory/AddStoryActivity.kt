@@ -7,10 +7,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.aldiprahasta.storyapp.databinding.ActivityAddStoryBinding
 import com.aldiprahasta.storyapp.utils.getImageUri
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class AddStoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddStoryBinding
+    private val viewModel by viewModel<AddStoryViewModel>()
+
     private var currentImageUri: Uri? = null
 
     private val launcherGallery = registerForActivityResult(

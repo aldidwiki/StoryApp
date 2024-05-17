@@ -3,6 +3,7 @@ package com.aldiprahasta.storyapp.data
 import com.aldiprahasta.storyapp.data.network.RemoteService
 import com.aldiprahasta.storyapp.data.request.LoginRequestModel
 import com.aldiprahasta.storyapp.data.request.RegisterRequestModel
+import com.aldiprahasta.storyapp.data.response.AddStoryResponse
 import com.aldiprahasta.storyapp.data.response.LoginResponse
 import com.aldiprahasta.storyapp.data.response.RegisterResponse
 import com.aldiprahasta.storyapp.data.response.StoryResponse
@@ -13,6 +14,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.HttpException
 import timber.log.Timber
 
@@ -64,4 +67,17 @@ class RemoteDataSource(private val remoteService: RemoteService) {
         Timber.e(t)
         emit(UiState.Error(t))
     }.flowOn(Dispatchers.IO)
+
+    fun addStory(imageFile: MultipartBody.Part, description: RequestBody): Flow<UiState<AddStoryResponse>> =
+            flow {
+                emit(UiState.Loading)
+                val response = remoteService.addStories(imageFile, description)
+                if (!response.isSuccessful) throw HttpException(response)
+                else response.body()?.let { addStoryResponse ->
+                    emit(UiState.Success(addStoryResponse))
+                }
+            }.catch { t ->
+                Timber.e(t)
+                emit(UiState.Error(t))
+            }.flowOn(Dispatchers.IO)
 }

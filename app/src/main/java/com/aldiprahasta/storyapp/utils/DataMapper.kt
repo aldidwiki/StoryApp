@@ -1,8 +1,10 @@
 package com.aldiprahasta.storyapp.utils
 
+import com.aldiprahasta.storyapp.data.response.AddStoryResponse
 import com.aldiprahasta.storyapp.data.response.LoginResponse
 import com.aldiprahasta.storyapp.data.response.RegisterResponse
 import com.aldiprahasta.storyapp.data.response.StoryResponse
+import com.aldiprahasta.storyapp.domain.model.AddStoryDomainModel
 import com.aldiprahasta.storyapp.domain.model.LoginDomainModel
 import com.aldiprahasta.storyapp.domain.model.RegisterDomainModel
 import com.aldiprahasta.storyapp.domain.model.StoryDomainModel
@@ -27,3 +29,8 @@ fun StoryResponse.mapToDomainModelList(): List<StoryDomainModel> = listStory?.ma
             createdAt = item.createdAt ?: ""
     )
 }?.sortedByDescending { it.createdAt } ?: emptyList()
+
+fun AddStoryResponse.mapToDomainModel(): AddStoryDomainModel = AddStoryDomainModel(
+        isError = error ?: false,
+        message = message ?: ""
+)
