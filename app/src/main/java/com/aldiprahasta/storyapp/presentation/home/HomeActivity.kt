@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.aldiprahasta.storyapp.R
 import com.aldiprahasta.storyapp.databinding.ActivityHomeBinding
 import com.aldiprahasta.storyapp.presentation.addstory.AddStoryActivity
+import com.aldiprahasta.storyapp.presentation.detail.DetailActivity
 import com.aldiprahasta.storyapp.presentation.welcomescreen.WelcomeActivity
 import com.aldiprahasta.storyapp.utils.MyPreferences
 import com.aldiprahasta.storyapp.utils.doIfError
@@ -60,6 +61,11 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         binding.rvStory.adapter = storyAdapter
+        storyAdapter.setOnItemClickCallback { model ->
+            DetailActivity.newIntent(this, model).also {
+                startActivity(it)
+            }
+        }
     }
 
     private fun subscribeData() {

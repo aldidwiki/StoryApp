@@ -1,6 +1,9 @@
 package com.aldiprahasta.storyapp.utils
 
 import android.app.Activity
+import android.content.Intent
+import android.os.Build.VERSION.SDK_INT
+import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -14,7 +17,7 @@ fun Activity.hideSystemUI(view: View) {
     WindowInsetsControllerCompat(window, view).let { controller ->
         controller.hide(WindowInsetsCompat.Type.systemBars())
         controller.systemBarsBehavior =
-                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
     }
 }
 
@@ -36,4 +39,9 @@ fun EditText.afterTextChanged(onTextChanged: (text: String) -> Unit) {
             onTextChanged.invoke(s.toString())
         }
     })
+}
+
+inline fun <reified T : Parcelable> Intent.parcelable(key: String): T? = when {
+    SDK_INT >= 33 -> getParcelableExtra(key, T::class.java)
+    else -> @Suppress("DEPRECATION") getParcelableExtra(key) as? T
 }
