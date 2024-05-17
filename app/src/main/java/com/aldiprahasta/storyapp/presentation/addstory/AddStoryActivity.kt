@@ -111,6 +111,10 @@ class AddStoryActivity : AppCompatActivity() {
             edtDescription.afterTextChanged { description ->
                 viewModel.setDescriptionField(description)
             }
+
+            imgBack.setOnClickListener {
+                finish()
+            }
         }
     }
 
