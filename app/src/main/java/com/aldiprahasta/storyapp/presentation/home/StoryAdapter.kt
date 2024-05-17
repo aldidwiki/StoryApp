@@ -1,5 +1,7 @@
 package com.aldiprahasta.storyapp.presentation.home
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -24,7 +26,10 @@ class StoryAdapter : ListAdapter<StoryDomainModel, StoryAdapter.StoryViewHolder>
         : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: StoryDomainModel) {
             binding.apply {
-                imgStory.load(item.photoUrl)
+                imgStory.load(item.photoUrl) {
+                    crossfade(true)
+                    placeholder(ColorDrawable(Color.GRAY))
+                }
                 tvStoryTitle.text = item.name
                 tvStoryBody.text = item.description
 
