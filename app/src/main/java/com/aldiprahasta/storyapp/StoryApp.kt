@@ -1,6 +1,7 @@
 package com.aldiprahasta.storyapp
 
 import android.app.Application
+import com.aldiprahasta.storyapp.di.appModule
 import com.aldiprahasta.storyapp.di.remoteModule
 import com.aldiprahasta.storyapp.di.repositoryModule
 import com.aldiprahasta.storyapp.di.useCaseModule
@@ -14,7 +15,7 @@ class StoryApp : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@StoryApp)
-            modules(remoteModule, repositoryModule, useCaseModule, viewModelModule)
+            modules(remoteModule, repositoryModule, useCaseModule, viewModelModule, appModule)
         }
 
         if (BuildConfig.DEBUG) {

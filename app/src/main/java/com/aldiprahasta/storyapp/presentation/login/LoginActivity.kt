@@ -8,17 +8,20 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.aldiprahasta.storyapp.data.request.LoginRequestModel
 import com.aldiprahasta.storyapp.databinding.ActivityLoginBinding
+import com.aldiprahasta.storyapp.utils.MyPreferences
 import com.aldiprahasta.storyapp.utils.doIfError
 import com.aldiprahasta.storyapp.utils.doIfLoading
 import com.aldiprahasta.storyapp.utils.doIfSuccess
 import com.aldiprahasta.storyapp.utils.gone
 import com.aldiprahasta.storyapp.utils.visible
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val viewModel by viewModel<LoginViewModel>()
+    private val myPreferences by inject<MyPreferences>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
 
                             doIfSuccess { model ->
                                 binding.pbLogin.gone()
-                                println("debug: $model")
+                                myPreferences.writeTokenToDataStore(model.token)
                             }
                         }
                     }
