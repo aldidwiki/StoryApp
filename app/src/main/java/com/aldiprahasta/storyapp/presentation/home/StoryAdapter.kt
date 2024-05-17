@@ -34,7 +34,7 @@ class StoryAdapter : ListAdapter<StoryDomainModel, StoryAdapter.StoryViewHolder>
                 tvStoryBody.text = item.description
 
                 root.setOnClickListener {
-                    onItemClickCallback?.onItemClicked(item)
+                    onItemClickCallback?.onItemClicked(item, binding)
                 }
             }
         }
@@ -46,7 +46,7 @@ class StoryAdapter : ListAdapter<StoryDomainModel, StoryAdapter.StoryViewHolder>
     }
 
     fun interface OnItemClickCallback {
-        fun onItemClicked(item: StoryDomainModel)
+        fun onItemClicked(item: StoryDomainModel, view: ItemStoryBinding)
     }
 
     companion object {

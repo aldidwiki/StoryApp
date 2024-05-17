@@ -6,6 +6,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.aldiprahasta.storyapp.R
@@ -61,9 +63,15 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         binding.rvStory.adapter = storyAdapter
-        storyAdapter.setOnItemClickCallback { model ->
+        storyAdapter.setOnItemClickCallback { model, view ->
+            val optionsCompat: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    this@HomeActivity,
+                    Pair(view.imgStory, "image"),
+                    Pair(view.tvStoryTitle, "title"),
+                    Pair(view.tvStoryBody, "description")
+            )
             DetailActivity.newIntent(this, model).also {
-                startActivity(it)
+                startActivity(it, optionsCompat.toBundle())
             }
         }
     }
