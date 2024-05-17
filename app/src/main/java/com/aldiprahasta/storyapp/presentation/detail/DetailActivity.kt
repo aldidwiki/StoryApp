@@ -30,7 +30,7 @@ class DetailActivity : AppCompatActivity() {
                 placeholder(ColorDrawable(Color.GRAY))
             }
             tvStoryTitle.text = storyModel?.name
-            tvStoryBody.text = storyModel?.name
+            tvStoryBody.text = storyModel?.description
         }
     }
 
