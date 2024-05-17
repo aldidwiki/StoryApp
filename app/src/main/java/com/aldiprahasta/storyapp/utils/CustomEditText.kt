@@ -82,6 +82,12 @@ class CustomEditText(
 
     fun getText() = binding.edtLayout.text.toString()
 
+    fun setOnTextChangedListener(onTextChanged: (text: String) -> Unit) {
+        binding.edtLayout.afterTextChanged {
+            onTextChanged(it)
+        }
+    }
+
     fun setErrorMessage(text: CharSequence?) {
         text?.let {
             binding.tvError.isVisible = true
