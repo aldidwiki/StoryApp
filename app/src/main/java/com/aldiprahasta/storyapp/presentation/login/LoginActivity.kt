@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
                                 myPreferences.writeTokenToDataStore(model.token)
                                 Intent(this@LoginActivity, HomeActivity::class.java).also { intent ->
                                     startActivity(intent)
-                                    finish()
+                                    finishAffinity()
                                 }
                             }
                         }

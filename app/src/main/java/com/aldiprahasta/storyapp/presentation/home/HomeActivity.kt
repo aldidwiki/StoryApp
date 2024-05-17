@@ -19,6 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private val viewModel by viewModel<HomeViewModel>()
+    private val storyAdapter: StoryAdapter by lazy { StoryAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +27,12 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupListener()
+        setupRecyclerView()
         subscribeData()
+    }
+
+    private fun setupRecyclerView() {
+        binding.rvStory.adapter = storyAdapter
     }
 
     private fun subscribeData() {
@@ -44,7 +50,7 @@ class HomeActivity : AppCompatActivity() {
 
                     doIfSuccess { data ->
                         binding.pbHome.gone()
-                        println("debug: $data")
+                        storyAdapter.submitList(data)
                     }
                 }
             }
