@@ -2,7 +2,9 @@ package com.aldiprahasta.storyapp.di
 
 import com.aldiprahasta.storyapp.data.RemoteDataSource
 import com.aldiprahasta.storyapp.data.network.RemoteService
+import com.aldiprahasta.storyapp.utils.MyPreferences
 import com.google.gson.Gson
+import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.module.dsl.bind
@@ -12,17 +14,24 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val remoteModule = module {
-    single { provideRetrofit() }
+    singleOf(::provideRetrofit)
     singleOf(::provideRemoteService) { bind<RemoteService>() }
     singleOf(::RemoteDataSource)
 }
 
-private fun provideRetrofit(): Retrofit {
+private fun provideRetrofit(myPreferences: MyPreferences): Retrofit {
     val loggingInterceptor = HttpLoggingInterceptor()
         .setLevel(HttpLoggingInterceptor.Level.BODY)
 
     val okhttp = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
+        .addInterceptor { chain ->
+            val token = runBlocking { myPreferences.getTokenFromDataStore() }
+            val requestHeaders = chain.request().newBuilder()
+                .addHeader("Authorization", "Bearer $token")
+                .build()
+            chain.proceed(requestHeaders)
+        }
         .build()
 
     return Retrofit.Builder()

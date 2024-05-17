@@ -1,5 +1,6 @@
 package com.aldiprahasta.storyapp.presentation.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.aldiprahasta.storyapp.data.request.LoginRequestModel
 import com.aldiprahasta.storyapp.databinding.ActivityLoginBinding
+import com.aldiprahasta.storyapp.presentation.home.HomeActivity
 import com.aldiprahasta.storyapp.utils.MyPreferences
 import com.aldiprahasta.storyapp.utils.doIfError
 import com.aldiprahasta.storyapp.utils.doIfLoading
@@ -56,6 +58,10 @@ class LoginActivity : AppCompatActivity() {
                             doIfSuccess { model ->
                                 binding.pbLogin.gone()
                                 myPreferences.writeTokenToDataStore(model.token)
+                                Intent(this@LoginActivity, HomeActivity::class.java).also { intent ->
+                                    startActivity(intent)
+                                    finish()
+                                }
                             }
                         }
                     }
