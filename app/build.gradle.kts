@@ -42,6 +42,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.activity:activity:1.8.0")
     val lifecycleVersion = "2.8.0"
     val retrofitVersion = "2.11.0"
 
