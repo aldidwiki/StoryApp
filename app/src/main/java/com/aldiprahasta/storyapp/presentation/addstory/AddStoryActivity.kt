@@ -80,7 +80,11 @@ class AddStoryActivity : AppCompatActivity() {
 
                             doIfError { _, errorMessage ->
                                 binding.pbAddStory.gone()
-                                Toast.makeText(this@AddStoryActivity, errorMessage, Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                        this@AddStoryActivity,
+                                        errorMessage,
+                                        Toast.LENGTH_SHORT
+                                ).show()
                             }
 
                             doIfSuccess {
@@ -143,7 +147,9 @@ class AddStoryActivity : AppCompatActivity() {
     private fun startCamera() {
         currentImageUri = getImageUri(this)
         viewModel.setImageUri(currentImageUri)
-        launcherIntentCamera.launch(currentImageUri)
+        currentImageUri?.let {
+            launcherIntentCamera.launch(it)
+        }
     }
 
     private fun showImage() {

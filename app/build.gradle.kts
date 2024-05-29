@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -22,17 +23,17 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
             )
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 
     buildFeatures {
@@ -42,9 +43,11 @@ android {
 }
 
 dependencies {
-    implementation("androidx.activity:activity:1.8.0")
+    implementation("androidx.activity:activity-ktx:1.9.0")
     val lifecycleVersion = "2.8.0"
     val retrofitVersion = "2.11.0"
+    val roomVersion = "2.6.1"
+    val pagingVersion = "3.3.0"
 
     //lifecycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
@@ -65,6 +68,15 @@ dependencies {
 
     //timber
     implementation("com.jakewharton.timber:timber:5.0.1")
+
+    //room
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    implementation("androidx.room:room-paging:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
+
+    //paging
+    implementation("androidx.paging:paging-runtime-ktx:$pagingVersion")
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
