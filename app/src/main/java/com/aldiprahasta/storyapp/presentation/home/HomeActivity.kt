@@ -56,7 +56,11 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        binding.rvStory.adapter = storyAdapter
+        binding.rvStory.adapter = storyAdapter.withLoadStateFooter(
+                footer = LoadingStateAdapter {
+                    storyAdapter.retry()
+                }
+        )
         storyAdapter.setOnItemClickCallback { model, view ->
             val optionsCompat: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                     this@HomeActivity,
@@ -72,24 +76,6 @@ class HomeActivity : AppCompatActivity() {
 
     private fun subscribeData() {
         lifecycleScope.launch {
-//            viewModel.stories.flowWithLifecycle(lifecycle).collect { state ->
-//                state.apply {
-//                    doIfLoading {
-//                        binding.pbHome.visible()
-//                    }
-//
-//                    doIfError { _, errorMessage ->
-//                        binding.pbHome.gone()
-//                        Toast.makeText(this@HomeActivity, errorMessage, Toast.LENGTH_SHORT).show()
-//                    }
-//
-//                    doIfSuccess { data ->
-//                        binding.pbHome.gone()
-//                        storyAdapter.submitList(data)
-//                    }
-//                }
-//            }
-
             viewModel.storiesWithPaging.flowWithLifecycle(lifecycle).collect {
                 storyAdapter.submitData(it)
             }
