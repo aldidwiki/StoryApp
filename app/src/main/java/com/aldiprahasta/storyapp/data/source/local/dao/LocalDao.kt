@@ -1,4 +1,4 @@
-package com.aldiprahasta.storyapp.data.source.local
+package com.aldiprahasta.storyapp.data.source.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
