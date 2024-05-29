@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
@@ -16,11 +15,6 @@ import com.aldiprahasta.storyapp.presentation.addstory.AddStoryActivity
 import com.aldiprahasta.storyapp.presentation.detail.DetailActivity
 import com.aldiprahasta.storyapp.presentation.welcomescreen.WelcomeActivity
 import com.aldiprahasta.storyapp.utils.MyPreferences
-import com.aldiprahasta.storyapp.utils.doIfError
-import com.aldiprahasta.storyapp.utils.doIfLoading
-import com.aldiprahasta.storyapp.utils.doIfSuccess
-import com.aldiprahasta.storyapp.utils.gone
-import com.aldiprahasta.storyapp.utils.visible
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -78,22 +72,26 @@ class HomeActivity : AppCompatActivity() {
 
     private fun subscribeData() {
         lifecycleScope.launch {
-            viewModel.stories.flowWithLifecycle(lifecycle).collect { state ->
-                state.apply {
-                    doIfLoading {
-                        binding.pbHome.visible()
-                    }
+//            viewModel.stories.flowWithLifecycle(lifecycle).collect { state ->
+//                state.apply {
+//                    doIfLoading {
+//                        binding.pbHome.visible()
+//                    }
+//
+//                    doIfError { _, errorMessage ->
+//                        binding.pbHome.gone()
+//                        Toast.makeText(this@HomeActivity, errorMessage, Toast.LENGTH_SHORT).show()
+//                    }
+//
+//                    doIfSuccess { data ->
+//                        binding.pbHome.gone()
+//                        storyAdapter.submitList(data)
+//                    }
+//                }
+//            }
 
-                    doIfError { _, errorMessage ->
-                        binding.pbHome.gone()
-                        Toast.makeText(this@HomeActivity, errorMessage, Toast.LENGTH_SHORT).show()
-                    }
-
-                    doIfSuccess { data ->
-                        binding.pbHome.gone()
-                        storyAdapter.submitList(data)
-                    }
-                }
+            viewModel.storiesWithPaging.flowWithLifecycle(lifecycle).collect {
+                storyAdapter.submitData(it)
             }
         }
     }

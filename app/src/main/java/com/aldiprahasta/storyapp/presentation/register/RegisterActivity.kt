@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.aldiprahasta.storyapp.data.request.RegisterRequestModel
+import com.aldiprahasta.storyapp.data.source.network.request.RegisterRequestModel
 import com.aldiprahasta.storyapp.databinding.ActivityRegisterBinding
 import com.aldiprahasta.storyapp.utils.doIfError
 import com.aldiprahasta.storyapp.utils.doIfLoading

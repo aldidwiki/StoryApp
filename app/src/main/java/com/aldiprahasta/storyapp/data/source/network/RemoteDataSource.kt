@@ -1,12 +1,11 @@
-package com.aldiprahasta.storyapp.data
+package com.aldiprahasta.storyapp.data.source.network
 
-import com.aldiprahasta.storyapp.data.network.RemoteService
-import com.aldiprahasta.storyapp.data.request.LoginRequestModel
-import com.aldiprahasta.storyapp.data.request.RegisterRequestModel
-import com.aldiprahasta.storyapp.data.response.AddStoryResponse
-import com.aldiprahasta.storyapp.data.response.LoginResponse
-import com.aldiprahasta.storyapp.data.response.RegisterResponse
-import com.aldiprahasta.storyapp.data.response.StoryResponse
+import com.aldiprahasta.storyapp.data.source.network.request.LoginRequestModel
+import com.aldiprahasta.storyapp.data.source.network.request.RegisterRequestModel
+import com.aldiprahasta.storyapp.data.source.network.response.AddStoryResponse
+import com.aldiprahasta.storyapp.data.source.network.response.LoginResponse
+import com.aldiprahasta.storyapp.data.source.network.response.RegisterResponse
+import com.aldiprahasta.storyapp.data.source.network.response.StoryResponse
 import com.aldiprahasta.storyapp.utils.UiState
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.aldiprahasta.storyapp.data.request.LoginRequestModel
+import com.aldiprahasta.storyapp.data.source.network.request.LoginRequestModel
 import com.aldiprahasta.storyapp.databinding.ActivityLoginBinding
 import com.aldiprahasta.storyapp.presentation.home.HomeActivity
 import com.aldiprahasta.storyapp.utils.MyPreferences

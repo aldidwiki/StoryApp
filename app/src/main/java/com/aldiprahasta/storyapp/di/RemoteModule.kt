@@ -1,7 +1,7 @@
 package com.aldiprahasta.storyapp.di
 
-import com.aldiprahasta.storyapp.data.RemoteDataSource
-import com.aldiprahasta.storyapp.data.network.RemoteService
+import com.aldiprahasta.storyapp.data.source.network.RemoteDataSource
+import com.aldiprahasta.storyapp.data.source.network.RemoteService
 import com.aldiprahasta.storyapp.utils.MyPreferences
 import com.google.gson.Gson
 import kotlinx.coroutines.runBlocking

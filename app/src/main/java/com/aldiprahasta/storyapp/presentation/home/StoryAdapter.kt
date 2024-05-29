@@ -4,14 +4,14 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.aldiprahasta.storyapp.databinding.ItemStoryBinding
 import com.aldiprahasta.storyapp.domain.model.StoryDomainModel
 
-class StoryAdapter : ListAdapter<StoryDomainModel, StoryAdapter.StoryViewHolder>(DIFF_UTIL) {
+class StoryAdapter : PagingDataAdapter<StoryDomainModel, StoryAdapter.StoryViewHolder>(DIFF_UTIL) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = ItemStoryBinding.inflate(layoutInflater, parent, false)
@@ -19,7 +19,9 @@ class StoryAdapter : ListAdapter<StoryDomainModel, StoryAdapter.StoryViewHolder>
     }
 
     override fun onBindViewHolder(holder: StoryViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        getItem(position)?.let {
+            holder.bind(it)
+        }
     }
 
     inner class StoryViewHolder(private val binding: ItemStoryBinding)

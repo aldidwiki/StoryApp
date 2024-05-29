@@ -1,6 +1,6 @@
 package com.aldiprahasta.storyapp.domain.usecase
 
-import com.aldiprahasta.storyapp.data.request.RegisterRequestModel
+import com.aldiprahasta.storyapp.data.source.network.request.RegisterRequestModel
 import com.aldiprahasta.storyapp.domain.StoryRepository
 import com.aldiprahasta.storyapp.domain.model.RegisterDomainModel
 import com.aldiprahasta.storyapp.utils.UiState

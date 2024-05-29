@@ -2,7 +2,7 @@ package com.aldiprahasta.storyapp.presentation.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aldiprahasta.storyapp.data.request.RegisterRequestModel
+import com.aldiprahasta.storyapp.data.source.network.request.RegisterRequestModel
 import com.aldiprahasta.storyapp.domain.model.RegisterDomainModel
 import com.aldiprahasta.storyapp.domain.usecase.RegisterUser
 import com.aldiprahasta.storyapp.utils.UiState

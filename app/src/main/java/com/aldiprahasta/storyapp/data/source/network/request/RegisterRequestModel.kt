@@ -1,4 +1,4 @@
-package com.aldiprahasta.storyapp.data.request
+package com.aldiprahasta.storyapp.data.source.network.request
 
 import com.google.gson.annotations.SerializedName
 
