@@ -33,8 +33,8 @@ class StoryRepositoryImpl(
         return remoteDataSource.loginUser(loginRequestModel)
     }
 
-    override fun getStories(): Flow<UiState<StoryResponse>> {
-        return remoteDataSource.getStories()
+    override fun getStories(pageSize: Int): Flow<UiState<StoryResponse>> {
+        return remoteDataSource.getStories(pageSize)
     }
 
     override fun addStory(imageFile: MultipartBody.Part, description: RequestBody): Flow<UiState<AddStoryResponse>> {

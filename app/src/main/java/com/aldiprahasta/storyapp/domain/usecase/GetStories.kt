@@ -8,7 +8,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class GetStories(private val storyRepository: StoryRepository) {
-    operator fun invoke(): Flow<UiState<List<StoryDomainModel>>> = storyRepository.getStories()
+    operator fun invoke(pageSize: Int = 15): Flow<UiState<List<StoryDomainModel>>> = storyRepository
+            .getStories(pageSize)
             .map { state ->
                 when (state) {
                     is UiState.Loading -> UiState.Loading

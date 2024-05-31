@@ -18,7 +18,7 @@ interface StoryRepository {
 
     fun loginUser(loginRequestModel: LoginRequestModel): Flow<UiState<LoginResponse>>
 
-    fun getStories(): Flow<UiState<StoryResponse>>
+    fun getStories(pageSize: Int): Flow<UiState<StoryResponse>>
     fun getStoriesWithPaging(): Flow<PagingData<StoryEntity>>
 
     fun addStory(imageFile: MultipartBody.Part, description: RequestBody): Flow<UiState<AddStoryResponse>>

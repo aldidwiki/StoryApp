@@ -27,7 +27,9 @@ fun StoryResponse.mapToDomainModelList(): List<StoryDomainModel> = listStory?.ma
             name = item.name ?: "",
             description = item.description ?: "",
             photoUrl = item.photoUrl ?: "",
-            createdAt = item.createdAt ?: ""
+            createdAt = item.createdAt ?: "",
+            lat = item.lat,
+            lng = item.lon
     )
 }?.sortedByDescending { it.createdAt } ?: emptyList()
 

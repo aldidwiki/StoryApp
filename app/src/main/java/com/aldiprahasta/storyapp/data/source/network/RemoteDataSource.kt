@@ -55,9 +55,9 @@ class RemoteDataSource(private val remoteService: RemoteService) {
         }
     }.flowOn(Dispatchers.IO)
 
-    fun getStories(): Flow<UiState<StoryResponse>> = flow {
+    fun getStories(pageSize: Int): Flow<UiState<StoryResponse>> = flow {
         emit(UiState.Loading)
-        val response = remoteService.getStories()
+        val response = remoteService.getStories(size = pageSize)
         if (!response.isSuccessful) throw HttpException(response)
         else response.body()?.let { storyResponse ->
             emit(UiState.Success(storyResponse))
