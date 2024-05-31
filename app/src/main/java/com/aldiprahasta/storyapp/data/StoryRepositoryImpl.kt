@@ -13,7 +13,6 @@ import com.aldiprahasta.storyapp.data.source.network.request.RegisterRequestMode
 import com.aldiprahasta.storyapp.data.source.network.response.AddStoryResponse
 import com.aldiprahasta.storyapp.data.source.network.response.LoginResponse
 import com.aldiprahasta.storyapp.data.source.network.response.RegisterResponse
-import com.aldiprahasta.storyapp.data.source.network.response.StoryResponse
 import com.aldiprahasta.storyapp.domain.StoryRepository
 import com.aldiprahasta.storyapp.utils.UiState
 import kotlinx.coroutines.flow.Flow
@@ -31,10 +30,6 @@ class StoryRepositoryImpl(
 
     override fun loginUser(loginRequestModel: LoginRequestModel): Flow<UiState<LoginResponse>> {
         return remoteDataSource.loginUser(loginRequestModel)
-    }
-
-    override fun getStories(): Flow<UiState<StoryResponse>> {
-        return remoteDataSource.getStories()
     }
 
     override fun addStory(imageFile: MultipartBody.Part, description: RequestBody): Flow<UiState<AddStoryResponse>> {
