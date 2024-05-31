@@ -97,7 +97,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 )
         )
 
-        val indonesiaLatLng = LatLng(0.7893, 113.9213)
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(indonesiaLatLng, 3f))
+//        val indonesiaLatLng = LatLng(0.7893, 113.9213)
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(indonesiaLatLng, 3f))
     }
 }
