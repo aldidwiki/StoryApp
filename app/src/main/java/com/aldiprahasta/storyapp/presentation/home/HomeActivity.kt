@@ -13,6 +13,7 @@ import com.aldiprahasta.storyapp.R
 import com.aldiprahasta.storyapp.databinding.ActivityHomeBinding
 import com.aldiprahasta.storyapp.presentation.addstory.AddStoryActivity
 import com.aldiprahasta.storyapp.presentation.detail.DetailActivity
+import com.aldiprahasta.storyapp.presentation.map.MapsActivity
 import com.aldiprahasta.storyapp.presentation.welcomescreen.WelcomeActivity
 import com.aldiprahasta.storyapp.utils.MyPreferences
 import kotlinx.coroutines.Dispatchers
@@ -38,17 +39,25 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_logout, menu)
+        menuInflater.inflate(R.menu.menu_story, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_logout) {
-            lifecycleScope.launch(Dispatchers.Main) {
-                myPreferences.deleteTokenFromDataStore()
-                Intent(this@HomeActivity, WelcomeActivity::class.java).also {
+        when (item.itemId) {
+            R.id.action_logout -> {
+                lifecycleScope.launch(Dispatchers.Main) {
+                    myPreferences.deleteTokenFromDataStore()
+                    Intent(this@HomeActivity, WelcomeActivity::class.java).also {
+                        startActivity(it)
+                        finishAffinity()
+                    }
+                }
+            }
+
+            R.id.action_map -> {
+                Intent(this, MapsActivity::class.java).also {
                     startActivity(it)
-                    finishAffinity()
                 }
             }
         }

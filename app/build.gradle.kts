@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -44,6 +45,7 @@ android {
 
 dependencies {
     implementation("androidx.activity:activity-ktx:1.9.0")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
     val lifecycleVersion = "2.8.0"
     val retrofitVersion = "2.11.0"
     val roomVersion = "2.6.1"
