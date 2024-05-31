@@ -5,6 +5,7 @@ import com.aldiprahasta.storyapp.data.source.network.request.RegisterRequestMode
 import com.aldiprahasta.storyapp.data.source.network.response.AddStoryResponse
 import com.aldiprahasta.storyapp.data.source.network.response.LoginResponse
 import com.aldiprahasta.storyapp.data.source.network.response.RegisterResponse
+import com.aldiprahasta.storyapp.data.source.network.response.StoryResponse
 import com.aldiprahasta.storyapp.utils.UiState
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
@@ -52,6 +53,18 @@ class RemoteDataSource(private val remoteService: RemoteService) {
         } else {
             emit(UiState.Error(t))
         }
+    }.flowOn(Dispatchers.IO)
+
+    fun getStories(): Flow<UiState<StoryResponse>> = flow {
+        emit(UiState.Loading)
+        val response = remoteService.getStories()
+        if (!response.isSuccessful) throw HttpException(response)
+        else response.body()?.let { storyResponse ->
+            emit(UiState.Success(storyResponse))
+        }
+    }.catch { t ->
+        Timber.e(t)
+        emit(UiState.Error(t))
     }.flowOn(Dispatchers.IO)
 
     fun addStory(imageFile: MultipartBody.Part, description: RequestBody): Flow<UiState<AddStoryResponse>> =

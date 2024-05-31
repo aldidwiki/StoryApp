@@ -26,8 +26,7 @@ interface RemoteService {
     @GET("stories")
     suspend fun getStories(
             @Query("page") page: Int = 1,
-            @Query("size") size: Int = 5,
-            @Query("location") location: Int = 1
+            @Query("size") size: Int = 5
     ): Response<StoryResponse>
 
     @Multipart
