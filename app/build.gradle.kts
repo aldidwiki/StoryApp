@@ -41,6 +41,10 @@ android {
         viewBinding = true
         buildConfig = true
     }
+
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -50,6 +54,10 @@ dependencies {
     val retrofitVersion = "2.11.0"
     val roomVersion = "2.6.1"
     val pagingVersion = "3.3.0"
+    val coreTesting = "2.1.0"
+    val kotlinxCoroutinesTest = "1.6.1"
+    val mockitoCore = "4.4.0"
+    val mockitoInline = "4.4.0"
 
     //lifecycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
@@ -84,7 +92,19 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+
+    //testing
     testImplementation("junit:junit:4.13.2")
+    testImplementation("androidx.arch.core:core-testing:$coreTesting")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesTest")
+    testImplementation("org.mockito:mockito-inline:$mockitoInline")
+    testImplementation("org.mockito:mockito-core:$mockitoCore")
+    testImplementation("app.cash.turbine:turbine:0.12.1")
+
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.arch.core:core-testing:$coreTesting")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesTest")
+
+
 }
