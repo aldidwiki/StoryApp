@@ -12,7 +12,7 @@ interface LocalDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertStory(stories: List<StoryEntity>)
 
-    @Query("SELECT * FROM story_table")
+    @Query("SELECT * FROM story_table ORDER BY createdAt DESC")
     fun getAllStory(): PagingSource<Int, StoryEntity>
 
     @Query("DELETE FROM story_table")

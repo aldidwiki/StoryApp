@@ -89,6 +89,7 @@ class AddStoryActivity : AppCompatActivity() {
 
                             doIfSuccess {
                                 binding.pbAddStory.gone()
+                                setResult(RESULT_OK)
                                 finish()
                             }
                         }
@@ -125,7 +126,7 @@ class AddStoryActivity : AppCompatActivity() {
     private fun uploadImage() {
         currentImageUri?.let { uri ->
             val imageFile = uriToFile(uri, this).reduceFileImage()
-            Timber.d("Image File", "showImage: ${imageFile.path}")
+//            Timber.d("Image File", "showImage: ${imageFile.path}")
             val description = binding.edtDescription.text.toString()
 
             val requestBody = description.toRequestBody("text/plain".toMediaType())
@@ -154,7 +155,7 @@ class AddStoryActivity : AppCompatActivity() {
 
     private fun showImage() {
         currentImageUri?.let {
-            Timber.d("Image URI", "showImage: $it")
+//            Timber.d("Image URI", "showImage: $it")
             binding.imgStory.setImageURI(it)
         }
     }

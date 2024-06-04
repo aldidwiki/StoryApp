@@ -82,7 +82,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         storyModelList.forEach { item ->
             if (item.lat != null && item.lng != null) {
                 val latLng = LatLng(item.lat, item.lng)
-                mMap.addMarker(MarkerOptions().position(latLng).title(item.name))
+                mMap.addMarker(MarkerOptions().position(latLng).title(item.name).snippet(item.description))
                 boundsBuilder.include(latLng)
             }
         }
@@ -97,7 +97,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 )
         )
 
-//        val indonesiaLatLng = LatLng(0.7893, 113.9213)
-//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(indonesiaLatLng, 3f))
+        val indonesiaLatLng = LatLng(0.7893, 113.9213)
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(indonesiaLatLng, 3f))
     }
 }

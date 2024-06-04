@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
@@ -26,6 +27,15 @@ class HomeActivity : AppCompatActivity() {
     private val viewModel by viewModel<HomeViewModel>()
     private val storyAdapter: StoryAdapter by lazy { StoryAdapter() }
     private val myPreferences by inject<MyPreferences>()
+
+    private val resultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            viewModel.setFetchAgain(true)
+            binding.rvStory.smoothScrollToPosition(0)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,7 +105,7 @@ class HomeActivity : AppCompatActivity() {
         binding.apply {
             fbAddStory.setOnClickListener {
                 Intent(this@HomeActivity, AddStoryActivity::class.java).also {
-                    startActivity(it)
+                    resultLauncher.launch(it)
                 }
             }
         }
